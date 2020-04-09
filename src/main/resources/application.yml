@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    database-platform: mysql
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/hotel?createDatabaseIfNotExist=true&useSSL=true
+    username: root
+    password: hotel@123
+    driverClassName: com.mysql.cj.jdbc.Driver
+    platform: mysql
