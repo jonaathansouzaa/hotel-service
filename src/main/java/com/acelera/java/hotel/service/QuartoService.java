@@ -21,12 +21,12 @@ public class QuartoService {
         return quartoRepository.findByEstaOcupadoFalseAndEstaLimpoFalse();
     }
 
-    public void atualizaParaQuartoLimpo(Long quartoId) {
+    public Quarto atualizaParaQuartoLimpo(Long quartoId) {
         Optional<Quarto> quartoOptional = quartoRepository.findById(quartoId);
         if (quartoOptional.isPresent()) {
             Quarto quarto = quartoOptional.get();
             quarto.setEstaLimpo(Boolean.TRUE);
-            quartoRepository.save(quarto);
+            return quartoRepository.save(quarto);
         } else {
             throw new QuartoNotFoundException();
         }

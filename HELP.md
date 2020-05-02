@@ -21,3 +21,6 @@ These additional references should also help you:
 
 * [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
 
+Para rodar o container local, utilizar a linha a seguir:
+
+```docker run -d -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=hotel@123 -e MYSQL_USER=hotel -e MYSQL_PASSWORD=hotel@123 mysql:latest```

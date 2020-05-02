@@ -79,4 +79,16 @@ public class Quarto {
     public void setEstaLimpo(Boolean estaLimpo) {
         this.estaLimpo = estaLimpo;
     }
+
+    @Override
+    public String toString() {
+        return "Quarto{" +
+                "id=" + id +
+                ", numero=" + numero +
+                ", andar=" + andar +
+                ", tipoQuarto='" + tipoQuarto + '\'' +
+                ", estaOcupado=" + estaOcupado +
+                ", estaLimpo=" + estaLimpo +
+                '}';
+    }
 }

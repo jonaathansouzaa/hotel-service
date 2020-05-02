@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface QuartoRepository extends JpaRepository<Quarto, Long> {
 
-    List<Quarto> findByEstaOcupadoFalseAndEstaLimpoFalse();
+    public List<Quarto> findByEstaOcupadoFalseAndEstaLimpoFalse();
+
 }
