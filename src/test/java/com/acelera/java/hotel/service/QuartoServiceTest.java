@@ -14,7 +14,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 import javax.annotation.security.RunAs;
 import java.util.*;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class QuartoServiceTest {
@@ -97,5 +99,40 @@ class QuartoServiceTest {
         verifyNoMoreInteractions(quartoRepository);
     }
 
+    @Test
+    void deveRetornarQueQuartoFoiMarcadoParaLimpezaAposCheckout() {
+        // entrada
+        Long quartoId = 1L;
+        Quarto quarto = new Quarto(702, 7,"Duplex", Boolean.TRUE, Boolean.TRUE);
+
+        // mock
+        when(quartoRepository.findById(quartoId)).thenReturn(Optional.of(quarto));
+        when(quartoRepository.save(quarto)).thenReturn(quarto);
+
+        // execução
+        Quarto actual = quartoService.marcarParaLimpezaAposCheckout(quartoId);
+
+        // validação
+        assertFalse(actual.getEstaOcupado());
+        assertFalse(actual.getEstaLimpo());
+        verify(quartoRepository, times(1)).findById(quartoId);
+        verify(quartoRepository, times(1)).save(quarto);
+    }
+
+    @Test()
+    void deveRetornarUmaExcecaoCasoQuartoNaoForEncontrado() {
+        // entrada
+        Long quartoId = 1L;
+
+        //mock
+        when(quartoRepository.findById(quartoId)).thenReturn(Optional.empty());
+
+        // execução - validação
+        assertThatThrownBy(() -> quartoService.marcarParaLimpezaAposCheckout(quartoId))
+            .isInstanceOf(QuartoNotFoundException.class)
+            .hasMessage("Quarto 1 não encontrado.");
+
+        verify(quartoRepository).findById(quartoId);
+    }
 
 }
