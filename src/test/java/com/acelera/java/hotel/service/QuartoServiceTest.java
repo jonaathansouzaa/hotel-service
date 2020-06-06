@@ -10,6 +10,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.security.RunAs;
 import java.util.*;
@@ -19,10 +21,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(SpringExtension.class)
 class QuartoServiceTest {
 
-    private QuartoRepository quartoRepository = Mockito.mock(QuartoRepository.class);
-    private QuartoService quartoService = new QuartoService(quartoRepository);
+    @Mock
+    private QuartoRepository quartoRepository;
+
+    @InjectMocks
+    private QuartoService quartoService;
 
     @Test
     void deveRetornarQuartosParaALimpezaQuandoSolicitados() {
