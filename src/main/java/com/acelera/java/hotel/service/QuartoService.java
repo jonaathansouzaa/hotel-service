@@ -49,4 +49,11 @@ public class QuartoService {
         quarto.setEstaOcupado(Boolean.FALSE);
         return quartoRepository.save(quarto);
     }
+
+    public List<Quarto> getListaDeQuartosLimposDisponiveis() {
+        return quartoRepository.findByEstaOcupadoFalseAndEstaLimpoTrue();
+    }
+
+    public void salvar(Quarto quarto) {
+    }
 }

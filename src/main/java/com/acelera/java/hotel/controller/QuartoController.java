@@ -6,6 +6,7 @@ import com.acelera.java.hotel.service.QuartoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -24,9 +25,21 @@ public class QuartoController {
         return ResponseEntity.ok(quartosParaLimpeza);
     }
 
+    @GetMapping("quartos-limpos-e-disponiveis")
+    public ResponseEntity<List<Quarto>> getQuartosLimposEDisponiveis() {
+        List<Quarto> quartosLimposDisponiveis = quartoService.getListaDeQuartosLimposDisponiveis();
+        return ResponseEntity.ok(quartosLimposDisponiveis);
+    }
+
     @PostMapping("quartos-para-limpeza/{quartoId}/limpo")
     public ResponseEntity<?> limparQuarto(@PathVariable Long quartoId) {
         quartoService.atualizaParaQuartoLimpo(quartoId);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("quarto")
+    public ResponseEntity<?> incluirNovo(@RequestBody Quarto quarto) {
+        quartoService.salvar(quarto);
         return ResponseEntity.ok().build();
     }
 
