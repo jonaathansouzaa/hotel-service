@@ -1,0 +1,37 @@
+version: '3.5'
+
+volumes:
+  mysql-db:
+
+services:
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql-server
+    environment:
+      MYSQL_DATABASE: 'hotel'
+      MYSQL_USER: 'hotel'
+      MYSQL_PASSWORD: 'hotel@123'
+      MYSQL_ROOT_PASSWORD: 'hotel@123'
+    ports:
+      - "3306:3306"
+    networks:
+      - hotel-service-network
+    volumes:
+      - mysql-db:/var/lib/mysql
+
+  hotel-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: jsouzajava/hotel-service:latest
+    container_name: hotel-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    networks:
+      - hotel-service-network
+
+networks:
+  hotel-service-network:
